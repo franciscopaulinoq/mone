@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Gerenciar categorias | Monê
+{% endblock title %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Categoria</h1>
+</div>
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow">
+            <div class="card-header bg-white border-0">
+                <div class="d-flex justify-content-end"><a href="{% url 'categoria' %}"
+                        class="btn btn-secondary btn-sm">Cancelar</a></div>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="" class="mb-0 small">Nome</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="mb-0 small">Cor</label>
+                        {{ form.cor }}
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="mb-0 small">Tipo</label>
+                        {{ form.tipo }}
+                    </div>
+                    <input type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Salvar">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Categorias</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th>Cor</th>
+                                <th class="col-md-3 center-block">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for categoria in categorias %}
+                            <tr>
+                                <td>{{ categoria.nome }}</td>
+                                <td>{{ categoria.tipo }}</td>
+                                {% if categoria.tipo == "Receita" %}
+                                <td class="text-center"> <span class="test rounded-circle py-1 px-2"
+                                        style="background-color: {{ categoria.cor }};"><i
+                                            class="fas fa-arrow-up text-white"></i></span> </td>
+                                {% else %}
+                                <td class="text-center"> <span class="rounded-circle py-1 px-2"
+                                        style="width: 100px; height: 65px; background-color: {{ categoria.cor }};"><i
+                                            class="fas fa-arrow-down text-white"></i></span> </td>
+                                {% endif %}
+                                <td class="col-md-3 center-flex text-center">
+                                    <a href="{% url 'editar_categoria'  categoria.id %}"
+                                        class="btn btn-sm btn-primary fa fa-edit"></a>
+                                    <a href="{% url 'remover_categoria'  categoria.id %}"
+                                        class="btn btn-sm btn-danger fas fa-trash-alt"></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
