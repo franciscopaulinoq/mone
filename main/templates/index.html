@@ -185,7 +185,7 @@ Dashboard | Monê
                     mais do que ganhou.</div>
                 <div class="p-2 text-gray-800">Você gastou <b>0,00%</b> a mais de suas receitas.</div>
                 {% else %}
-                {% if porcentagem|mul:1 > 100 %}
+                {% if porcen|mul:1 > 100 %}
                 <div class="p-2 text-gray-800">Este mês você gastou R${{dif|mul:1}} a mais do que ganhou.</div>
                 <div class="p-2 text-gray-800">Você gastou <b>{{porcentagem|mul:1}}%</b> a mais de suas receitas.</div>
                 {% else %}
