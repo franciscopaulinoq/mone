@@ -2,7 +2,19 @@ version: '3.9.8'
 
 services:
   django:
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn mone.wsgi application --bind 0.0.0.0:8000
     build: .
     ports:
-      - "80:8000"
+      - "8000:8000"
+    volumes:
+      - db_volume:/home/app/banco
+      - static_volume:/home/app/static
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - static_volume:/home/app/static
+volumes:
+  db_volume:
+  static_volume:
