@@ -6,3 +6,7 @@ from main.models import *
 admin.site.register(Categoria)
 admin.site.register(Receita)
 admin.site.register(Gasto)
+
+
+
+#teste
